@@ -15,7 +15,7 @@ if($is_bare === FALSE) {
     exit;
 }
 
-$DeployPath="/home/wwwroot/VUE2";
+$DeployPath="/home/wwwroot/default/VUE2";
 
 //$result = exec("cd /opt/lampp/htdocs/VUE2;/usr/local/git/bin/git pull >> /tmp/git_auto_push.log 2>&1");
 exec("cd ${DeployPath}");
