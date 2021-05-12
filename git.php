@@ -21,7 +21,7 @@ $DeployPath="/home/wwwroot/default/VUE2";
 exec("cd ${DeployPath}");
 exec("/usr/bin/git --work-tree=${DeployPath} clean -fd");
 exec("/usr/bin/git --work-tree=${DeployPath} checkout --force");
-exec("/usr/bin/git pull origin master >> /tmp/VUE2.log 2>&1");
+exec("/usr/bin/git pull origin VUE2 >> /tmp/VUE2.log 2>&1");
 WriteLog("web server pull at webserver at time: " . date("YmdHis"));
 
 echo 'success';
