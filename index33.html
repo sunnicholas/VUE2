@@ -6,15 +6,22 @@
     <script src = "./vue.js"></script>
 </head>
 <body>
+<!--  <div id = "app">-->
+<!-- 1 插值表达式  -->
+<!--    {{name + ' Lee'}}-->
+<!--  </div>-->
   <div id = "app">
-<!--  插值表达式  -->
-    {{name}}
+<!-- 2  v-text = js 表达式  进行了转义==插值表达式 -->
+    <div v-text="name + ' Lee'"></div>
+<!-- 3 v-html = 保留样式  -->
+    <div v-html="name + ' Lee'" ></div>
   </div>
   <script>
     var vm = new Vue({
       el: "#app",
       data:{
-        name:"Dell"
+        // name:"<h1>Dell2</h1>"
+        name:"Dell2"
       }
     })
   </script>
