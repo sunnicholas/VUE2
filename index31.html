@@ -8,12 +8,19 @@
 <body>
   <div id="root">
 <!--    handleClick 事件绑定-->
-    <div v-on:click="handleClick">
-      {{message}}
-    </div>
+<!--    <div v-on:click="handleClick"> -->
+    <div @:click="handleClick">{{message}}</div>
+    <item></item>
   </div>
 
   <script>
+      //组件
+      Vue.component('item',{
+        template: '<div>Hello item</div>'
+      })
+
+      //根实例
+      //每一个组件也是一个VUE实例
       var vm = new Vue({
         //实例 接管页面的 dom 渲染
         el : '#root',
