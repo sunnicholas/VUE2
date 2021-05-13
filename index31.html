@@ -7,7 +7,10 @@
 </head>
 <body>
   <div id="root">
-    {{message}}
+    //handleClick 事件绑定
+    <div v-on:click="handleClick">
+      {{message}}
+    </div>
   </div>
 
   <script>
@@ -17,6 +20,12 @@
         //定义字段 存放数据
         data : {
           message : 'Hello world'
+        },
+        //监听dom  自动执行触发的方法
+        methods : {
+          handleClick : function () {
+            alert("Hello vue test")
+          }
         }
       })
   </script>
