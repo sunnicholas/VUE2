@@ -14,10 +14,46 @@
       var vm = new Vue({
           //生命周期函数 就是vue实例在某一个时间点会自动执行的函数
           el : "#app",
+          //如果没有  template 就会把  div-app 里的所有元素 作为模板使用，有模板  则使用模板渲染
+          template : "<div>{{test}}</div>",
+          data: {
+            test: "test data"
+          },
           //生命周期函数
+          //1-beforeCreate 初始化事件 和 生命周期 后执行
           beforeCreate: function (){
               console.log("beforeCreate");
-          }
+          },
+          //2-created injections 注入 & reactivity 返回
+          created: function (){
+              console.log("created");
+          },
+          //初始化基本结束
+
+          //挂在前
+          beforeMount: function (){
+              console.log(this.$el);
+              console.log("beforeMount");
+              //beforeMount 执行后  template 渲染到页面
+          },
+          //挂载
+          mounted: function (){
+              console.log(this.$el);
+              console.log("mounted");
+          },
+          beforeUpdate: function (){
+              console.log("beforeUpdate");
+          },
+          updated: function (){
+              console.log("updated");
+          },
+          beforeDestroy: function (){
+              console.log("beforeDestroy");
+          },
+          destroyed: function (){
+              console.log("destroyed");
+          },
+
       })
   </script>
 </body>
