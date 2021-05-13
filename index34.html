@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性 方法 监听器</title>
+    <script src = "./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+<!--      {{firstName + " " + lastName}}-->
+<!--      {{fullName() + " " + age}}-->
+      {{fullName + " " + age}}
+  </div>
+
+  <script>
+     var vm = new Vue({
+         el: "#app",
+         data: {
+             firstName: "Code",
+             lastName: "S",
+             // fullName: "",
+             age: 28
+             // fullName: firstName+lastName
+         },
+         //方案1：计算属性 --  内置缓存的 性能 > 方法
+         computed: {
+             fullName: function (){
+                 console.log("computed once")
+                 return this.firstName + " " + this.lastName
+             }
+         }
+         //方案2：方法
+         // methods: {
+         //     fullName: function (){
+         //         console.log("methods once")
+         //         return this.firstName + " " + this.lastName
+         //     }
+         // }
+         //方案3：监听器 具备缓存机制  但语法复杂
+         // watch: {
+         //     firstName: function (){
+         //         console.log("firstName once")
+         //         this.fullName = this.firstName + " " + this.lastName
+         //     },
+         //     lastName: function (){
+         //         console.log("lastName once")
+         //         this.fullName = this.firstName + " " + this.lastName
+         //     }
+         // }
+     })
+  </script>
+</body>
+</html>
