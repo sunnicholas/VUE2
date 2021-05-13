@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 实例 31</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    {{message}}
+  </div>
+
+  <script>
+      var vm = new Vue({
+        //实例 接管页面的 dom 渲染
+        el : '#root',
+        //定义字段 存放数据
+        data : {
+          message : 'Hello world'
+        }
+      })
+  </script>
+</body>
+</html>
