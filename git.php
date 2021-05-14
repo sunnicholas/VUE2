@@ -8,53 +8,53 @@
  * Time: 下午4:28
  * change by codeShi 2018
  */
-// $is_bare = exec("/usr/bin/git rev-parse --is-bare-repository");
-//
-// if($is_bare === FALSE) {
-//     writeLog("fatal: post-receive: IS_NOT_BARE");
-//     exit;
-// }
-//
-// $DeployPath="/home/wwwroot/default/VUE2";
-//
-// $result = exec("cd /home/wwwroot/default/VUE2;/usr/local/git/bin/git pull >> /tmp/git_auto_push.log 2>&1");
-// exec("cd ${DeployPath}");
-// exec("/usr/bin/git --work-tree=${DeployPath} clean -fd");
-// exec("/usr/bin/git --work-tree=${DeployPath} checkout --force");
-// exec("/usr/bin/git pull origin VUE2 >> /tmp/VUE2.log 2>&1");
-// WriteLog("web server pull at webserver at time: " . date("YmdHis"));
-//
-// echo 'success';
-//
-// function writeLog($str) {
-//     $log_str = "[" . date('Y-m-d H:i:s') . "] " . $str ."\n";
-//     file_put_contents("/tmp/VUE2",$log_str,FILE_APPEND);
-// }
 
-    //密钥
-    $secret = "123456";//Github项目中对应的Secret
-    //获取GitHub发送的内容
-    $json = file_get_contents('php://input');
-    $content = json_decode($json, true);
+// 自行创建一个验证密码
+$keySecret = '123456';
 
-    //github发送过来的签名
-    $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-    if (!$signature) {
-        return http_response_code(404);
+// 修改为你自己的仓库绝对路径
+$wwwRoot = [
+    '/home/wwwroot/default/VUE2',
+];
+
+// 保存运行脚本的日志
+$logFile = 'log/webhook.log';
+
+// 执行git命令
+$gitCommand = 'git pull';
+
+// 判断是否开启秘钥认证(已实现gitee和github)
+if (isset($keySecret) && !empty($keySecret)) {
+    list($headers, $gitType) = [[], null];
+    foreach ($_SERVER as $key => $value) {
+        'HTTP_' == substr($key, 0, 5) && $headers[str_replace('_', '-', substr($key, 5))] = $value;
+        if (empty($gitType) && strpos($key, 'GITEE') !== false) {
+            $gitType = 'GITEE';
+        }
+        if (empty($gitType) && strpos($key, 'GITHUB') !== false) {
+            $gitType = 'GITHUB';
+        }
     }
-
-    list($algo, $hash) = explode('=', $signature, 2);
-    //计算签名
-    $payloadHash = hash_hmac($algo, $json, $secret);
-    if ($hash !== $payloadHash){
-        return http_response_code(404);
+    if ($gitType == 'GITEE') {
+        if (!isset($headers['X-GITEE-TOKEN']) || $headers['X-GITEE-TOKEN'] != $keySecret) {
+            die('GITEE - 请求失败，秘钥有误');
+        }
+    } elseif ($gitType == 'GITHUB') {
+        $json_content = file_get_contents('php://input');
+        $signature = "sha1=" . hash_hmac('sha1', $json_content, $keySecret);
+        if ($signature != $headers['X-HUB-SIGNATURE']) {
+            die('GITHUB - 请求失败，秘钥有误');
+        }
+    } else {
+        die('请求错误，未知git类型');
     }
+}
 
-    echo "开始部署<br>";
-    chdir("/home/wwwroot/default/VUE2");
-    exec("git pull 2>&1", $out);
-    foreach($out as $v)
-    {
-        echo iconv( 'GB2312','UTF-8', $v)."<br>";
-    }
-?>
+!is_array($wwwRoot) && $wwwRoot = [$wwwRoot];
+foreach ($wwwRoot as $vo) {
+    $shell = sprintf("cd %s && git pull 2>&1", $vo);
+    $output = shell_exec($shell);
+    $log = sprintf("[%s] %s \n", date('Y-m-d H:i:s', time()) . ' - ' . $vo, $output);
+    echo $log;
+    file_put_contents($logFile, $log, FILE_APPEND);
+}
