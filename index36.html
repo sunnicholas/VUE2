@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Vue中的样式绑定</title>
+<!--    绑定 class 或  style 都可以绑定 对象 或 数组-->
     <script src="./vue.js"></script>
-    <style>
-        .activated{
-            color:red;
-        }
-    </style>
+<!--    <style>-->
+<!--        .activated{-->
+<!--            color:red;-->
+<!--        }-->
+<!--    </style>-->
 </head>
 <body>
 <div id="app">
 <!-- div元素要有一个class 名字是 activated  显不显示取决于：isActivated -->
     <!--        :class="{activated: isActivated}"-->
 <!--  页面上div元素 显示一个class  显示的是 activated里的内容   class 与数组绑定-->
-<!--        :class="[activated]"  -->
-    <div @click="handleDivClick"
-    :class="[activated,activatedOne]"
-    >
+<!--        :class="[activated]"      :class="[activated,activatedOne]" -->
+
+<!--    <div @click="handleDivClick">-->
+<!--  绑定style  -->
+<!--    <div :style="stylObj" @click="handleDivClick">-->
+    <div :style="[stylObj,{fontSize:'20px'}]" @click="handleDivClick">
         Hello world
     </div>
 </div>
@@ -26,14 +29,14 @@
 <script>
     var vm = new Vue({
         el: "#app",
-        data: {
-          // isActivated: false
-            activated:"",
-            activatedOne:"activated-one"
-        },
-        methods: {
-            handleDivClick: function () {
-                this.activated =  this.activated === "activated"?"":"activated"
+        // data: {
+        //   // isActivated: false
+        //     activated:"",
+        //     activatedOne:"activated-one"
+        // },
+        // methods: {
+            // handleDivClick: function () {
+            //     this.activated =  this.activated === "activated"?"":"activated"
                 // if(this.isActivated === "activated"){
                 //     this.activated = "activated"
                 // }else {
@@ -45,6 +48,17 @@
                 // }else {
                 //     this.isActivated = false
                 // }
+            // }
+        // }
+
+        data:{
+            stylObj:{
+                color:"black"
+            }
+        },
+        methods:{
+            handleDivClick:function (){
+                this.stylObj.color = this.stylObj.color==="black"?"red":"black"
             }
         }
     })
