@@ -6,10 +6,31 @@
     <script src="./vue.js"></script>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+    {{fullName}}
+</div>
 
 <script>
-
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            firstName: "code",
+            lastName: "S"
+        },
+        computed:{
+            fullName: {
+                get: function () {
+                    return this.firstName + " " + this.lastName
+                },
+                set: function (value) {
+                    var arr = value.split(" ");
+                    this.firstName = arr[0];
+                    this.lastName = arr[1];
+                    console.log(value);
+                }
+            }
+        }
+    })
 </script>
 
 </body>
