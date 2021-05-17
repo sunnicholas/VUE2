@@ -8,6 +8,7 @@
 <body>
 
 <div id="root">
+<!-- 1.利用 is 解决小bug   -->
 <!--            <tr>-->
 <!--                <td>1</td>-->
 <!--            </tr>-->
@@ -30,33 +31,66 @@
 <!--            </tbody>-->
 <!--        </table>-->
 
-    <div
-            ref="hello"
-            @click="handleClick"
-    >
-        hello world
-    </div>
+<!--    <div-->
+<!--            ref="hello"-->
+<!--            @click="handleClick"-->
+<!--    >-->
+<!--        hello world-->
+<!--    </div>-->
+    <counter ref="one" @change="handleChange"></counter>
+    <counter ref="two" @change="handleChange"></counter>
+    <div>{{total}}</div>
 </div>
 
 <script>
 
-    //子组件
-    Vue.component('row',{
+    //2.子组件 定义data 必须是 函数
+    // Vue.component('row',{
+    //     data:function (){
+    //         return {
+    //             content:'this is a row'
+    //         }
+    //     },
+    //     template:'<tr><td>{{content}}</td></tr>'
+    // })
+
+    Vue.component('counter',{
+        //模板template
+        template:'<div @click="handleClick">{{number}}</div>',
         data:function (){
-            return {
-                content:'this is a row'
+            return{
+                number:0
             }
         },
-        template:'<tr><td>{{content}}</td></tr>'
-    })
+        methods:{
+            handleClick:function (){
+                this.number++
+                //子组件 向父类传值
+                this.$emit('change')
+            }
+        }
+    });
 
     var vm = new Vue({
         el:'#root',
+        // methods:{
+        //     handleClick:function (){
+        //         //$refs：所有的引用
+        //         //如果 ref是组建  获取的是  组件的引用
+        //         console.log(this.$refs.hello.innerHTML)
+        //     }
+        // }
+        data:{
+            total:0
+        },
+        //3.refs的使用
         methods:{
-            handleClick:function (){
-                //$refs：所有的引用
-                //如果 ref是组建  获取的是  组件的引用
-                console.log(this.$refs.hello.innerHTML)
+            handleChange: function (){
+                // alert('change')
+                this.total = this.$refs.one.number + this.$refs.two.number
+                console.log(this.$refs.one.number)
+                console.log(this.$refs.two.number)
+                console.log(this.total)
             }
         }
     })
