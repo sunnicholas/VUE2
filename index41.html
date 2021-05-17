@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>41组件使用的细节点</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+
+<div id="root">
+<!--            <tr>-->
+<!--                <td>1</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>2</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>3</td>-->
+<!--            </tr>-->
+<!-- tbody里只能写tr -->
+<!-- tr继承row组件 -->
+<!--            <tr is="row"></tr>-->
+<!--            <tr is="row"></tr>-->
+<!--            <tr is="row"></tr>-->
+<!--        <table>-->
+<!--            <tbody>-->
+<!--                <tr is="row"></tr>-->
+<!--                <tr is="row"></tr>-->
+<!--                <tr is="row"></tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+
+    <div
+            ref="hello"
+            @click="handleClick"
+    >
+        hello world
+    </div>
+</div>
+
+<script>
+
+    //子组件
+    Vue.component('row',{
+        data:function (){
+            return {
+                content:'this is a row'
+            }
+        },
+        template:'<tr><td>{{content}}</td></tr>'
+    })
+
+    var vm = new Vue({
+        el:'#root',
+        methods:{
+            handleClick:function (){
+                //$refs：所有的引用
+                //如果 ref是组建  获取的是  组件的引用
+                console.log(this.$refs.hello.innerHTML)
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
