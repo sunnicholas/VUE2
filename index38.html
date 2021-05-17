@@ -10,23 +10,59 @@
 <!--    <div v-for="item of list">-->
 <!--        {{item}}-->
 <!--    </div>-->
-    <div v-for="(item,index) of list">
-        {{item}} ---- {{index}}
+<!-- template 不渲染 包裹模块   -->
+<!--    <template v-for="(item,index) of list"-->
+<!--              :key = "item.id">=-->
+<!--        <div>-->
+<!--            {{item.text}} &#45;&#45;{{index}}-->
+<!--        </div>-->
+<!--        <span>-->
+<!--            {{item.text}}-->
+<!--        </span>-->
+<!--    </template>-->
+
+    <div v-for="(item,key,index) of userInfo">
+          {{key}} : {{item}}:{{index}}
     </div>
 </div>
 
 <script>
+    //数组变异方法： push pop shift unshift splice sort reverse
     var vm= new Vue({
         el: "#app",
         data: {
-            list:[
-                "hello",
-                "code",
-                "nice",
-                "to",
-                "meet",
-                "you"
-            ]
+            // list:[
+            //     "hello",
+            //     "code",
+            //     "nice",
+            //     "to",
+            //     "meet",
+            //     "you"
+            // ]
+            // list:[
+            //     {
+            //         id:"010101010",
+            //         text:"hello"
+            //     },
+            //     {
+            //         id:"010101011",
+            //         text:"hello1"
+            //     },
+            //     {
+            //         id:"010101012",
+            //         text:"hello2"
+            //     },
+            //     {
+            //         id:"010101013",
+            //         text:"hello3"
+            //     },
+            // ]
+            userInfo: {
+                name: "code",
+                age:28,
+                gender:"male",
+                salary:"secret"
+            }
         }
     })
 </script>
