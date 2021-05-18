@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>42父子组件互相传值</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+<div id="root">
+<!-- F->S  属性的形式传值 -->
+    <counter :count="0" @inc="handleIncrease"></counter>
+    <counter :count="1" @inc="handleIncrease"></counter>
+<!-- S->F 事件触发的形式-->
+    <div>{{total}}</div>
+</div>
+
+<script>
+    //son
+    var counter = {
+        //接收父组件 内容 用 props
+        //子组件 不要直接修改父组件的参数值---单线数据流
+
+        props:['count'],
+        //子组件数据 必须是方法
+        data:function (){
+            return{
+                number:this.count
+            }
+        },
+        template:'<div @click="handleClick">{{number}}</div>',
+        methods:{
+            handleClick:function (){
+                this.number++
+                this.$emit('inc',1)
+            }
+        }
+    }
+
+    //father
+    var vm = new Vue ({
+        el:'#root',
+        data:{
+            total:1
+        },
+        //注册组件
+        components:{
+            counter:counter
+        },
+        methods:{
+            handleIncrease:function (step){
+                this.total += step
+                alert(step)
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
