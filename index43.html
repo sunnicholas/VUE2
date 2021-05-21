@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>43-组件参数效验与非Props特性</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+<div id="app">
+<!--    ：content  传递数字 -->
+    <child content="hello world"></child>
+</div>
+
+<script>
+    Vue.component('child',{
+        //props 特性 当父组件使用子组件 通过属性向子组件传值的时候，恰好子组件声明了一个对父组件传递属性的接收。
+        //props:['content'],
+        //对 content 进行约束  将数组改为 对象
+        props:{
+            //接收必须为string类型
+          // content:[String,Number]
+          //content:Number
+            content:{
+                type:String,
+                // required:false,//true必须传值
+                // default:'default value'
+                //validator 校验器
+                validator:function (value){
+                    return(value.length > 5)
+                }
+            }
+        },
+        template:'<div>{{content}}</div>'
+    })
+    var vm = new Vue({
+        el:'#app'
+    })
+</script>
+
+</body>
+</html>

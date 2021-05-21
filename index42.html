@@ -8,9 +8,11 @@
 <body>
 <div id="root">
 <!-- F->S  属性的形式传值 -->
+<!--  :count = "0"  js表达式  0 - 数字-->
+<!--   count  = "字符串" -->
     <counter :count="0" @inc="handleIncrease"></counter>
     <counter :count="1" @inc="handleIncrease"></counter>
-<!-- S->F 事件触发的形式-->
+<!-- S->F 事件触发的形式 -->
     <div>{{total}}</div>
 </div>
 
@@ -18,9 +20,9 @@
     //son
     var counter = {
         //接收父组件 内容 用 props
-        //子组件 不要直接修改父组件的参数值---单线数据流
-
+        //子组件 不要直接修改父组件的参数值---单向数据流
         props:['count'],
+
         //子组件数据 必须是方法
         data:function (){
             return{
