@@ -6,11 +6,34 @@
     <script src="./vue.js"></script>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+<!--    <child @click="handleClick"></child>-->
+<!--  组件绑定原生事件  -->
+    <child @click.native="handleClick"></child>
+</div>
 
 <script>
+    // Vue.component('child',{
+    //     template:'<div @click="handleChildClick">handleChildClick</div>',
+    //     methods:{
+    //         handleChildClick:function (){
+    //             // alert('handleChildClick')
+    //             // 监听触发父组件自定义事件
+    //             this.$emit('click')
+    //         }
+    //     }
+    // })
+    Vue.component('child',{
+        template:'<div>handleChildClick</div>',
+
+    })
     var vm = new Vue({
-        el: '#app'
+        el: '#app',
+        methods:{
+            handleClick:function (){
+                alert('click')
+            }
+        }
     })
 </script>
 
