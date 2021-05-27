@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>47-Vue中的作用域插槽</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child>
+<!--   作用域插槽 一定是一个template标签下的  生命数据放在 list中    -->
+        <template slot-scope="list">
+<!--    模板信息（展示）：       -->
+            <li>{{list.item}}</li>
+        </template>
+    </child>
+</div>
+
+<script>
+    Vue.component('child',{
+        data: function (){
+          return {
+              list:[1,2,3]
+          }
+        },
+        //当子组件组循环 或者某一部分他的dom结构应该由外部传递进入的时候 这个时候用 作用域插槽
+        //子组件 -》 父组件插槽 传数据，父组件接收必须使用 template slot-scope
+        template:'<div>' +
+                    '<ul>' +
+                        // '<li v-for="item of list">' +
+                        //     '{{item}}' +
+                        // '</li>' +
+                        '<slot v-for="item of list" :item=item> </slot>' +
+                    '</ul>' +
+                 '</div>'
+    })
+    var vm = new Vue({
+        el: '#app'
+    })
+</script>
+
+</body>
+</html>
