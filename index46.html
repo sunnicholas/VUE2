@@ -7,17 +7,33 @@
 </head>
 <body>
 <div id="app">
-    <child content="<p>CodeS</p>"></child>
+<!--    <child content="<p>CodeS</p>"></child>-->
+    <child>
+<!--        <h1>CodeS</h1>-->
+<!--  插槽   也可以传递给子组件   slot  插槽只有一个  具名插槽可以有多个 -->
+        <div class="header" slot="header">header</div>
+        <div class="footer" slot="footer">footer</div>
+    </child>
 </div>
 
 <script>
     Vue.component('child',{
-        props:['content'],
+        // template:'<div>' +
+        //             '<p>Hello </p>' + '<slot>默认内容</slot>' +
+        //          '</div>'
         template:'<div>' +
-                    '<p> hello </p>' +
-                    '<div v-html="this.content"></div>' +
+                    '<slot name="header"> default header </slot>' +
+                    '<div clss="content">content</div>' +
+                    '<slot name="footer"> </slot>' +
                 '</div>'
     })
+    // Vue.component('child',{
+    //     props:['content'],
+    //     template:'<div>' +
+    //                 '<p> hello </p>' +
+    //                 '<div v-html="this.content"></div>' +
+    //             '</div>'
+    // })
     var vm = new Vue({
         el: '#app'
     })
