@@ -7,17 +7,24 @@
 </head>
 <body>
 <div id="app">
-    <child-one v-if="type === 'child-one'"></child-one>
-    <child-two v-if="type === 'child-two'"></child-two>
+<!--  方法一  -->
+<!--    <child-one v-if="type === 'child-one'"></child-one>-->
+<!--    <child-two v-if="type === 'child-two'"></child-two>-->
+
+<!--  方法二 动态组件  componet 根据is 自动加载 每次的都要销毁一个组件 再创建一个组件 -->
+    <component :is="type"></component>
+
+<!--  v-once 指令 组件被放在内存里 -->
+
     <button @click="handleBtnClick">change</button>
 </div>
 
 <script>
     Vue.component('child-one',{
-        template:'<div>child-one</div>'
+        template:'<div v-once>child-one</div>'
     })
     Vue.component('child-two',{
-        template:'<div>child-two</div>'
+        template:'<div v-once>child-two</div>'
     })
     var vm = new Vue({
         el: '#app',
