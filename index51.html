@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>51Vue中CSS动画原理</title>
+    <script src="./vue.js"></script>
+    <style>
+<!--   默认 .v-enter     -->
+        /*.fade-enter,*/
+        /*.fade-leave-to{*/
+        /*    opacity:0;*/
+        /*}*/
+        /*.fade-enter-active,*/
+        /*.fade-leave-active{*/
+        /*    transition: opacity 3s;*/
+        /*}*/
+        .v-enter,
+        .v-leave-to{
+            opacity:0;
+        }
+        .v-enter-active,
+        .v-leave-active{
+            transition: opacity 3s;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<!--  transition  过度动画：加载css 动画样式 同时给div自动增加两个 第一针： class fade-enter fade-enter-active -->
+<!-- 第二针 去掉fade-enter 新增 fade-enter-to   -->
+<!--  第三针 删除 前面新增的fade  -->
+<!--    <transition name="fade">-->
+<!--        <div v-if="show">-->
+<!--            Hello world-->
+<!--        </div>-->
+<!--    </transition>-->
+
+    <div v-show="show">
+        Hello world
+    </div>
+
+    <button @click = "handleClick">切换</button>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            show:true
+        },
+        methods:{
+            handleClick: function (){
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
