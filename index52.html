@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>52在Vue中使用Animate.css库</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="./animate.css">
+<!--    <link-->
+<!--            rel="stylesheet"-->
+<!--            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"-->
+<!--    />-->
+    <style>
+        /*.fade-enter-active,.fade-leave-active {*/
+        /*    transition: opacity 3s;*/
+        /*}*/
+        /*.fade-enter,.fade-leave-active{*/
+        /*    opacity:0;*/
+        /*}*/
+        /*@keyframes bounce-in{*/
+        /*    0% {*/
+        /*        transform: scale(0);*/
+        /*    }*/
+        /*    50% {*/
+        /*        transform: scale(1.5);*/
+        /*    }*/
+        /*    100% {*/
+        /*        transform: scale(1);*/
+        /*    }*/
+        /*}*/
+        /*.fade-enter-active {*/
+        /*    transform-origin: left center;*/
+        /*    animation: bounce-in 1s;*/
+        /*}*/
+        /*.fade-leave-active{*/
+        /*    transform-origin: left center;*/
+        /*    animation: bounce-in 1s;*/
+        /*}*/
+
+        /*.enter {*/
+        /*    transform-origin: left center;*/
+        /*    animation: bounce-in 1s;*/
+        /*}*/
+        /*.leave{*/
+        /*    transform-origin: left center;*/
+        /*    animation: bounce-in 1s;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div id="app">
+    <transition name="fade"
+    enter-active-class="animate__animated animate__bounce"
+    leave-active-class="animate__animated animate__swing"
+    >
+        <div v-show="show">Hello World</div>
+    </transition>
+    <button @click="handleClick">toggle</button>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+          show:true
+        },
+        methods:{
+            handleClick: function (){
+                this.show = !this.show
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
