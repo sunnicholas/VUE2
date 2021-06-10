@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>list</div>
-    <router-link to="/home">返回</router-link>
+    <router-link to="/">返回</router-link>
   </div>
 
 </template>
