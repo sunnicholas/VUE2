@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="home">home</div>
-    <router-link to="/list" class="home">列表页</router-link>
+    <div class="home">Hello world</div>
   </div>
 </template>
 
@@ -12,7 +11,5 @@ export default {
 </script>
 
 <style>
-  .home {
-    front-size: 500px;
-  }
+
 </style>
