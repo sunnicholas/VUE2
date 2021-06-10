@@ -14,6 +14,5 @@ fastClick.attach(document.body)
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
+  render: h => h(App)
 })
